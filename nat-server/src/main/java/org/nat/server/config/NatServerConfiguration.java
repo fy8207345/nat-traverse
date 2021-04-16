@@ -12,14 +12,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class NatServerConfiguration {
 
-    @Bean
-    public NatServerHandler natServerHandler(){
-        return new NatServerHandler();
-    }
-
     @Bean(initMethod = "start")
     public ServerTcpListener nodeTcpListenerStarter(Node node){
-        return new ServerTcpListener(node.getPort());
+        return new ServerTcpListener(node.getPort(), new NatServerHandler());
     }
 
     @Bean(initMethod = "connect")
